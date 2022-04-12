@@ -1,0 +1,4 @@
+CREATE TRIGGER `insertEncuesta` AFTER INSERT ON `visita`
+ FOR EACH ROW BEGIN
+  INSERT INTO encuesta SET idVisita = NEW.idVisita;
+END
