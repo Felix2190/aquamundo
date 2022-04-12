@@ -207,12 +207,15 @@
 			{
 				$SQL="INSERT INTO encuesta(idVisita,realizada,fecha_realizacion,pregunta1,pregunta2,pregunta3,pregunta4,pregunta5,pregunta6,pregunta7,idEmpleadoMejor,comentarios)
 						VALUES('" . mysqli_real_escape_string($this->dbLink,$this->idVisita) . "','" . mysqli_real_escape_string($this->dbLink,$this->realizada) . "','" . mysqli_real_escape_string($this->dbLink,$this->fecha_realizacion) . "','" . mysqli_real_escape_string($this->dbLink,$this->pregunta1) . "','" . mysqli_real_escape_string($this->dbLink,$this->pregunta2) . "','" . mysqli_real_escape_string($this->dbLink,$this->pregunta3) . "','" . mysqli_real_escape_string($this->dbLink,$this->pregunta4) . "','" . mysqli_real_escape_string($this->dbLink,$this->pregunta5) . "','" . mysqli_real_escape_string($this->dbLink,$this->pregunta6) . "','" . mysqli_real_escape_string($this->dbLink,$this->pregunta7) . "','" . mysqli_real_escape_string($this->dbLink,$this->idEmpleadoMejor) . "','" . mysqli_real_escape_string($this->dbLink,$this->comentarios) . "')";
-				$result=mysqli_query($this->dbLink,$SQL);
-				if(!$result)
-					return $this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseEncuesta::Insertar]");
 				
+				$result=mysqli_query($this->dbLink,$SQL);
+				if(!$result){
+					
+					$this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseEncuesta::Insertar]");
+					return array('error'=>$this->getStrSystemError());
+				}
 				$this->idEncuesta=mysqli_insert_id($this->dbLink);
-				return true;
+				return array('idEncuesta'=>$this->idEncuesta);
 			}
 			catch (Exception $e)
 			{
@@ -302,17 +305,17 @@
 		
 		public function Guardar()
 		{
-			if(!$this->validarDatos())
+			/*if(!$this->validarDatos())
 				return false;
 			if($this->getError())
-				return false;
+				return false;*/
 			if($this->idEncuesta==0)
-				$this->Insertar();
+				return $this->Insertar();
 			else
-				$this->Actualizar();
-			if($this->getError())
+				return $this->Actualizar();
+			/*if($this->getError())
 				return false;
-			return true;
+			return true;*/
 		}
 		
 	}

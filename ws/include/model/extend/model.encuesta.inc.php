@@ -46,7 +46,25 @@
 		#------------------------------------------------------------------------------------------------------#
 		#------------------------------------------------Querys------------------------------------------------#
 		#------------------------------------------------------------------------------------------------------#
-
+		public function guardarDatos($parametros)
+		{
+			//$datos = array('nombre' =>$parametros['idEncuesta']);
+			$this->setIdEncuesta($parametros['idEncuesta']);
+			$this->setIdVisita($parametros['idVisita']);
+			$this->setRealizada($parametros['realizada']);
+			$this->setFecha_realizacion(date('Y-m-d H:i:s'));
+			$this->setPregunta1($parametros['pregunta1']);	
+			$this->setPregunta2($parametros['pregunta2']);	
+			$this->setPregunta3($parametros['pregunta3']);	
+			$this->setPregunta4($parametros['pregunta4']);	
+			$this->setPregunta5($parametros['pregunta5']);	
+			$this->setPregunta6($parametros['pregunta6']);	
+			$this->setPregunta7($parametros['pregunta7']);	
+			$this->setIdEmpleadoMejor($parametros['idEmpleadoMejor']);
+			$this->setComentarios($parametros['comentarios']);
+			
+			return $this->Guardar();
+		}
 		#------------------------------------------------------------------------------------------------------#
 		#------------------------------------------------Otras-------------------------------------------------#
 		#------------------------------------------------------------------------------------------------------#
