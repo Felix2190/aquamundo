@@ -83,15 +83,20 @@ curl_setopt_array($curl, [
 				))
     ]*/
 	
-	//guardarVisita
+	/*//getEncuestaByTelefono
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'guardarVisitaCliente','parametros'=>json_encode(
-			array('idVisita'=>'0',
-			'fecha' =>'2022-03-01',
-			'idServicio'=>'2',
-			
-			'idCliente'=>'2'
+        'accion'=>'getEncuestaByTelefono','parametros'=>json_encode(
+			array('telefono'=>'4921030923'
+				))
+    ]*/
+	
+	
+	//getEncuestaByTelefono
+	CURLOPT_POSTFIELDS => [
+        'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
+        'accion'=>'getEncuestaByCorreo','parametros'=>json_encode(
+			array('correo_electronico'=>'alex_va_28@hotmail.com'
 				))
     ]
 	/*

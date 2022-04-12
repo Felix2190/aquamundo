@@ -59,7 +59,10 @@
 					$arreglo = $row_inf;
 				}
 			}
-			return $arreglo;
+			if(count($arreglo)>0)
+				return $arreglo;
+			
+			return array('Error'=>'No hay datos para mostrar');
 		}
 		
 		public function obtenerClienteByTelefono($telefono)
@@ -72,7 +75,10 @@
 					$arreglo = $row_inf;
 				}
 			}
-			return $arreglo;
+			if(count($arreglo)>0)
+				return $arreglo;
+			
+			return array('Error'=>'No hay datos para mostrar');
 		}
 		
 		

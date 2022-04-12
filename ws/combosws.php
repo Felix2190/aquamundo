@@ -188,6 +188,59 @@ switch($request_method){
 					
 				
 			break;
+			
+			case "getEncuestaByTelefono":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->obtenerClienteByTelefono($parametros['telefono']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else 
+						{
+							require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
+							$visita = new ModeloVisita();
+							
+							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
+							$mensaje = "OK";
+						}
+							
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+			
+			case "getEncuestaByCorreo":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->obtenerClienteByCorreo($parametros['correo_electronico']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else 
+						{
+							require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
+							$visita = new ModeloVisita();
+							
+							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
+							$mensaje = "OK";
+						}                                                                                                                                                                                                                                                                                                                                                   
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+				
+			
+			break;
 		
         }
 //        $sesion->setFdfecha_ultima_peticion($fecha);
