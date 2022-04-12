@@ -113,11 +113,12 @@
 				$SQL="INSERT INTO visita(fecha,idServicio,idCliente)
 						VALUES('" . mysqli_real_escape_string($this->dbLink,$this->fecha) . "','" . mysqli_real_escape_string($this->dbLink,$this->idServicio) . "','" . mysqli_real_escape_string($this->dbLink,$this->idCliente) . "')";
 				$result=mysqli_query($this->dbLink,$SQL);
-				if(!$result)
-					return $this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseVisita::Insertar]");
-				
+				if(!$result){
+					$this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseVisita::Insertar]");
+					return array('error'=>$this->getStrSystemError());
+				}
 				$this->idVisita=mysqli_insert_id($this->dbLink);
-				return true;
+				return array('idVisita'=>$this->idVisita);
 			}
 			catch (Exception $e)
 			{
@@ -207,17 +208,17 @@
 		
 		public function Guardar()
 		{
-			if(!$this->validarDatos())
+			/*if(!$this->validarDatos())
 				return false;
 			if($this->getError())
-				return false;
+				return false;*/
 			if($this->idVisita==0)
-				$this->Insertar();
+				return $this->Insertar();
 			else
-				$this->Actualizar();
-			if($this->getError())
+				return $this->Actualizar();
+			/*if($this->getError())
 				return false;
-			return true;
+			return true;*/
 		}
 		
 	}

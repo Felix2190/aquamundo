@@ -59,7 +59,7 @@ curl_setopt_array($curl, [
 			array('cve_estado'=>'32'
 				))
     ]*/
-	//guardarEncuesta
+	/*//guardarEncuesta
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'guardarEncuesta','parametros'=>json_encode(
@@ -80,6 +80,18 @@ curl_setopt_array($curl, [
 
 
 			
+				))
+    ]*/
+	
+	//guardarVisita
+	CURLOPT_POSTFIELDS => [
+        'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
+        'accion'=>'guardarVisitaCliente','parametros'=>json_encode(
+			array('idVisita'=>'0',
+			'fecha' =>'2022-03-01',
+			'idServicio'=>'2',
+			
+			'idCliente'=>'2'
 				))
     ]
 	/*

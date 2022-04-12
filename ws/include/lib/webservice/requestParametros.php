@@ -9,7 +9,7 @@ $arrayRol=array("listado","nuevo");
 $arrayCompraVenta=array("buscar","detalle");
 $arrayParametros=array("buscar","detalle","nuevo","iniciar");
 $arrayParametrosInegi=array("inegimunicipios","inegilocalidades");
-$arrayCombos=array("empresasprov","inegiestados","inegimunicipios","inegilocalidades","sucursales","roles","tipoarticulos","usuarios","categorias","obtenerClienteByCorreo","guardarCliente","obtenerClienteByTelefono","obtenerClienteByEstado","guardarEncuesta");
+$arrayCombos=array("empresasprov","inegiestados","inegimunicipios","inegilocalidades","sucursales","roles","tipoarticulos","usuarios","categorias","obtenerClienteByCorreo","guardarCliente","obtenerClienteByTelefono","obtenerClienteByEstado","guardarEncuesta","guardarVisitaCliente");
 switch ($__FILE_NAME__) {
     case "loginws":
         if (! isset($_POST['accion']) || $_POST['accion'] == "")
@@ -397,6 +397,23 @@ switch ($__FILE_NAME__) {
                     respuestaError("Error... no est&aacute; definido el par&aacute;metro comentarios");
 
 			
+        }
+		
+		
+		if ($_POST['accion'] == "guardarVisitaCliente" && isset($_POST['parametros'])) {
+            $parametros = json_decode($_POST['parametros'], true);
+            if (isset($parametros['idVisita']))
+                if ($parametros['idVisita'] == "")
+                    respuestaError("Error... no est&aacute; definido el par&aacute;metro idVisita");
+			if (isset($parametros['fecha']))
+                if ($parametros['fecha'] == "")
+                    respuestaError("Error... no est&aacute; definido el par&aacute;metro fecha");
+			if (isset($parametros['idServicio']))
+                if ($parametros['idServicio'] == "")
+                    respuestaError("Error... no est&aacute; definido el par&aacute;metro idServicio");
+			if (isset($parametros['idCliente']))
+                if ($parametros['idCliente'] == "")
+                    respuestaError("Error... no est&aacute; definido el par&aacute;metro idCliente");
         }
 		
         break;

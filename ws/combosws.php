@@ -150,9 +150,6 @@ switch($request_method){
 			
 			case "guardarEncuesta":
 			
-				$arrRes = $parametros;
-				
-					
 					require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
 					$encuesta = new ModeloEncuesta();
 					$arrRes=$encuesta->guardarDatos($parametros);
@@ -169,6 +166,26 @@ switch($request_method){
 					}	
 					else 
 						$mensaje = "OKO";
+				
+			break;
+			
+			case "guardarVisitaCliente":
+			
+					require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
+					$visita = new ModeloVisita();
+					$arrRes=$visita->guardarDatos($parametros);
+					if(count($arrRes)>0){
+						if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+					}	
+					else 
+						$mensaje = "OKO";
+					
 				
 			break;
 		
