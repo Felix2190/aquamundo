@@ -154,11 +154,12 @@
 				$SQL="INSERT INTO cliente(nombre,apellido,telefono,correo_electronico,cve_estado,cve_municipio,fecha_registro)
 						VALUES('" . mysqli_real_escape_string($this->dbLink,$this->nombre) . "','" . mysqli_real_escape_string($this->dbLink,$this->apellido) . "','" . mysqli_real_escape_string($this->dbLink,$this->telefono) . "','" . mysqli_real_escape_string($this->dbLink,$this->correo_electronico) . "','" . mysqli_real_escape_string($this->dbLink,$this->cve_estado) . "','" . mysqli_real_escape_string($this->dbLink,$this->cve_municipio) . "','" . mysqli_real_escape_string($this->dbLink,$this->fecha_registro) . "')";
 				$result=mysqli_query($this->dbLink,$SQL);
-				if(!$result)
-					return $this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseCliente::Insertar]");
-				
+				if(!$result){
+					 $this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseCliente::Insertar]");
+					 return array('error'=>$this->getStrSystemError());
+				}
 				$this->idCliente=mysqli_insert_id($this->dbLink);
-				return true;
+				return array('idCliente'=>$this->idCliente);
 			}
 			catch (Exception $e)
 			{
@@ -248,17 +249,17 @@
 		
 		public function Guardar()
 		{
-			if(!$this->validarDatos())
+			/*if(!$this->validarDatos())
 				return false;
 			if($this->getError())
-				return false;
+				return false;*/
 			if($this->idCliente==0)
-				$this->Insertar();
+				return $this->Insertar();
 			else
-				$this->Actualizar();
-			if($this->getError())
-				return false;
-			return true;
+				return $this->Actualizar();
+			/*if($this->getError())
+				return false;*/
+			return false;
 		}
 		
 	}

@@ -23,6 +23,8 @@ require_once FOLDER_INCLUDE . "lib/webservice/wsRespuesta.inc.php";
 $request_method=$_SERVER["REQUEST_METHOD"];
 $fecha = date("Y-m-d H:i:s");
 
+//$respuesta = new clsWsRespuesta();
+//$respuesta = new clsWsRespuesta();
 switch($request_method){
     case 'POST':
         require_once FOLDER_INCLUDE . "lib/webservice/requestParametros.php";
@@ -51,11 +53,13 @@ switch($request_method){
                 $estados = new ModeloInegidomgeo_cat_estado();
                 $arrRes=$estados->obtenerEstados();
                 break;
-                case "inegimunicipios":
+            case "inegimunicipios":
                 require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_municipio.inc.php";
                 $mun = new ModeloInegidomgeo_cat_municipio();
                 $arrRes=$mun->obtenerMunicipioXestado($parametros["cve_estado"]);
-                break;
+				
+									
+				break;
             case "usuarios":
                 require_once FOLDER_MODEL_EXTEND . "model.tausuario.inc.php";
                 $usuario = new Modelousuario();
@@ -64,6 +68,199 @@ switch($request_method){
                     $sucursal=$parametros['sucursal'];
                 $arrRes=$usuario->obtenerUsuariosBySucursal($sucursal);
                 break;
+				
+			case "obtenerClienteByCorreo":
+				try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->obtenerClienteByCorreo($parametros['correo_electronico']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";                                                                                                                                                                                                                                                                                                                                                     
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+			
+			case "obtenerClienteByTelefono":
+				try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->obtenerClienteByTelefono($parametros['telefono']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+			case "guardarCliente":
+				try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->guardarDatos($parametros);
+					if(count($arrRes)>0){
+						if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+					}	
+					else 
+						$mensaje = "OKO";
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+			
+			case "obtenerClienteByEstado":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->getClientesByEstado($parametros['cve_estado']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+			
+			case "guardarEncuesta":
+			
+					require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
+					$encuesta = new ModeloEncuesta();
+					$arrRes=$encuesta->guardarDatos($parametros);
+					
+					
+					if(count($arrRes)>0){
+						if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+					}	
+					else 
+						$mensaje = "OKO";
+				
+			break;
+			
+			case "guardarVisitaCliente":
+			
+					require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
+					$visita = new ModeloVisita();
+					$arrRes=$visita->guardarDatos($parametros);
+					if(count($arrRes)>0){
+						if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+					}	
+					else 
+						$mensaje = "OKO";
+					
+				
+			break;
+			
+			case "getEncuestaByTelefono":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->obtenerClienteByTelefono($parametros['telefono']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else 
+						{
+							require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
+							$visita = new ModeloVisita();
+							
+							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
+							$mensaje = "OK";
+						}
+							
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+			
+			case "getEncuestaByCorreo":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->obtenerClienteByCorreo($parametros['correo_electronico']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else 
+						{
+							require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
+							$visita = new ModeloVisita();
+							
+							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
+							$mensaje = "OK";
+						}                                                                                                                                                                                                                                                                                                                                                   
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			
+			
+			break;
+			
+			case "getServicios":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.servicio.inc.php";
+					$servicio = new ModeloServicio();
+					$arrRes=$servicio->getServicios();
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+		
         }
 //        $sesion->setFdfecha_ultima_peticion($fecha);
   //      $sesion->Guardar();
@@ -71,12 +268,17 @@ switch($request_method){
         $respuesta = new clsWsRespuesta();
         $respuesta->setRespuesta(true);
         $respuesta->setDatos($arrRes);
+		
+		$respuesta->setMensaje($mensaje);
         
         break;
         
     default:
         header("HTTP/1.0 405 Method Not Allowed");
         header('Content-Type: application/json');
+		
+		
+        
         break;
 }
 
