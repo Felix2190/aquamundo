@@ -250,8 +250,10 @@ switch($request_method){
 					$arrRes=$servicio->getServicios();
 					if (array_key_exists('error', $arrRes))
 						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
+						    respuestaError("Error. ". $arrRes['error']);
+						    
+	///						$mensaje="Error. ". $arrRes['error'];
+//							$arrRes=null;
 						}
 						else
 							$mensaje = "OK";
