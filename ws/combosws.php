@@ -238,8 +238,27 @@ switch($request_method){
 				  $mensaje = $e;
 				}
 				
-				
 			
+			
+			break;
+			
+			case "getServicios":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.servicio.inc.php";
+					$servicio = new ModeloServicio();
+					$arrRes=$servicio->getServicios();
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
 			break;
 		
         }

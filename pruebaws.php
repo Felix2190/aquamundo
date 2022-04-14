@@ -92,11 +92,18 @@ curl_setopt_array($curl, [
     ]*/
 	
 	
-	//getEncuestaByCorreo
+	/*//getEncuestaByCorreo
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'getEncuestaByCorreo','parametros'=>json_encode(
 			array('correo_electronico'=>'alex_va_28@hotmail.com'
+				))
+    ]*/
+	//getEncuestaByCorreo
+	CURLOPT_POSTFIELDS => [
+        'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
+        'accion'=>'getServicios','parametros'=>json_encode(
+			array('correo_electronico'=>'asd'
 				))
     ]
 	/*
