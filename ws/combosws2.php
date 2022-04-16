@@ -28,15 +28,18 @@ switch($request_method){
         require_once FOLDER_INCLUDE . "lib/webservice/requestParametros.php";
 
         switch ($_POST["accion"]){
-            case "listado":
+            case "inegiestados":
+                require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_estado.inc.php";
+                $estados = new ModeloInegidomgeo_cat_estado();
+                $arrRes=$estados->obtenerEstados();
                 break;
-            case "buscar":
-                break;
-            case "detalle":
-                break;
-            case "nuevo":
-                break;
+            case "inegimunicipios":
+                require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_municipio.inc.php";
+                $mun = new ModeloInegidomgeo_cat_municipio();
+                $arrRes=$mun->obtenerMunicipioXestado($parametros["cve_estado"]);
+                
             default:
+                respuestaError("No se reconoce la petici&oacute;n");
                 break;
         }
         
