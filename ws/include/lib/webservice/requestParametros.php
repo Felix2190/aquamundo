@@ -10,6 +10,8 @@ $arrayCompraVenta=array("buscar","detalle");
 $arrayParametros=array("buscar","detalle","nuevo","iniciar");
 $arrayParametrosInegi=array("inegimunicipios","inegilocalidades");
 $arrayCombos=array("empresasprov","inegiestados","inegimunicipios","inegilocalidades","sucursales","roles","tipoarticulos","usuarios","categorias","obtenerClienteByCorreo","guardarCliente","obtenerClienteByTelefono","obtenerClienteByEstado","guardarEncuesta","guardarVisitaCliente","getEncuestaByTelefono","getEncuestaByCorreo","getServicios");
+$arrayCliente = array("obtenerClienteByEstado","obtenerCliente","guardarCliente");
+
 switch ($__FILE_NAME__) {
     case "loginws":
         if (! isset($_POST['accion']) || $_POST['accion'] == "")
@@ -305,46 +307,49 @@ switch ($__FILE_NAME__) {
                     respuestaError("Error... no est&aacute; definido el par&aacute;metro sucursal");
         }
 		
-		if ($_POST['accion'] == "obtenerClienteByCorreo" && isset($_POST['parametros'])) {
-            $parametros = json_decode($_POST['parametros'], true);
-            if (isset($parametros['correo_electronico']))
-                if ($parametros['correo_electronico'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro correo_electronico");
-        }
 		
-		if ($_POST['accion'] == "obtenerClienteByTelefono" && isset($_POST['parametros'])) {
-            $parametros = json_decode($_POST['parametros'], true);
-            if (isset($parametros['telefono']))
-                if ($parametros['telefono'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro telefono");
-        }
 		
-		if ($_POST['accion'] == "guardarCliente" && isset($_POST['parametros'])) {
-            $parametros = json_decode($_POST['parametros'], true);
-            if (isset($parametros['idCliente']))
-                if ($parametros['idCliente'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro idCliente");
-			if (isset($parametros['nombre']))
-                if ($parametros['nombre'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro nombre");
-			if (isset($parametros['apellido']))
-                if ($parametros['apellido'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro apellido");
+		
+		
+		
+        break;
+		
+		case "clientews":
 			
-			if (isset($parametros['correo_electronico']))
-                if ($parametros['correo_electronico'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro correo_electronico");
-			if (isset($parametros['cve_estado']))
-                if ($parametros['cve_estado'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_estado");
-			if (isset($parametros['cve_municipio']))
-                if ($parametros['cve_municipio'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_municipio");
 			
+			if ($_POST['accion'] == "obtenerCliente" && isset($_POST['parametros'])) {
+				$parametros = json_decode($_POST['parametros'], true);
+				if (isset($parametros['dato']))
+					if ($parametros['dato'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro dato");
+			}
+			
+			if ($_POST['accion'] == "guardarCliente" && isset($_POST['parametros'])) {
+				$parametros = json_decode($_POST['parametros'], true);
+				if (isset($parametros['idCliente']))
+					if ($parametros['idCliente'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro idCliente");
+				if (isset($parametros['nombre']))
+					if ($parametros['nombre'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro nombre");
+				if (isset($parametros['apellido']))
+					if ($parametros['apellido'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro apellido");
 				
-        }
-		
-		if ($_POST['accion'] == "obtenerClienteByEstado" && isset($_POST['parametros'])) {
+				if (isset($parametros['correo_electronico']))
+					if ($parametros['correo_electronico'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro correo_electronico");
+				if (isset($parametros['cve_estado']))
+					if ($parametros['cve_estado'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_estado");
+				if (isset($parametros['cve_municipio']))
+					if ($parametros['cve_municipio'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_municipio");
+				
+					
+			}
+			
+			if ($_POST['accion'] == "obtenerClienteByEstado" && isset($_POST['parametros'])) {
             $parametros = json_decode($_POST['parametros'], true);
             if (isset($parametros['cve_estado']))
                 if ($parametros['cve_estado'] == "")
@@ -352,7 +357,10 @@ switch ($__FILE_NAME__) {
         }
 		
 		
-		if ($_POST['accion'] == "guardarEncuesta" && isset($_POST['parametros'])) {
+		break;
+		
+		case "encuestaws":
+			if ($_POST['accion'] == "guardarEncuesta" && isset($_POST['parametros'])) {
             $parametros = json_decode($_POST['parametros'], true);
             if (isset($parametros['idEncuesta']))
                 if ($parametros['idEncuesta'] == "")
@@ -397,46 +405,54 @@ switch ($__FILE_NAME__) {
                     respuestaError("Error... no est&aacute; definido el par&aacute;metro comentarios");
 
 			
-        }
+			}
+			
+			
+			if ($_POST['accion'] == "getEncuestaByCorreo" && isset($_POST['parametros'])) {
+				$parametros = json_decode($_POST['parametros'], true);
+				if (isset($parametros['correo_electronico']))
+					if ($parametros['correo_electronico'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro correo_electronico");
+			}
+			
+			if ($_POST['accion'] == "getEncuestaByTelefono" && isset($_POST['parametros'])) {
+				$parametros = json_decode($_POST['parametros'], true);
+				if (isset($parametros['telefono']))
+					if ($parametros['telefono'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro telefono");
+			}
+			
+			
+			
+			
+		break;
+
+		case "visitaws":
+			if ($_POST['accion'] == "guardarVisitaCliente" && isset($_POST['parametros'])) {
+				$parametros = json_decode($_POST['parametros'], true);
+				if (isset($parametros['idVisita']))
+					if ($parametros['idVisita'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro idVisita");
+				if (isset($parametros['fecha']))
+					if ($parametros['fecha'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro fecha");
+				if (isset($parametros['idServicio']))
+					if ($parametros['idServicio'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro idServicio");
+				if (isset($parametros['idCliente']))
+					if ($parametros['idCliente'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro idCliente");
+			}
+			
+		break;
 		
-		
-		if ($_POST['accion'] == "guardarVisitaCliente" && isset($_POST['parametros'])) {
-            $parametros = json_decode($_POST['parametros'], true);
-            if (isset($parametros['idVisita']))
-                if ($parametros['idVisita'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro idVisita");
-			if (isset($parametros['fecha']))
-                if ($parametros['fecha'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro fecha");
-			if (isset($parametros['idServicio']))
-                if ($parametros['idServicio'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro idServicio");
-			if (isset($parametros['idCliente']))
-                if ($parametros['idCliente'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro idCliente");
-        }
-		
-		
-		if ($_POST['accion'] == "getEncuestaByCorreo" && isset($_POST['parametros'])) {
-            $parametros = json_decode($_POST['parametros'], true);
-            if (isset($parametros['correo_electronico']))
-                if ($parametros['correo_electronico'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro correo_electronico");
-        }
-		
-		if ($_POST['accion'] == "getEncuestaByTelefono" && isset($_POST['parametros'])) {
-            $parametros = json_decode($_POST['parametros'], true);
-            if (isset($parametros['telefono']))
-                if ($parametros['telefono'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro telefono");
-        }
-		
-		if ($_POST['accion'] == "getServicios" && isset($_POST['parametros'])) {
-            $parametros = json_decode($_POST['parametros'], true);
-            if (isset($parametros['correo_electronico']))
-                if ($parametros['correo_electronico'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro telefono");
-        }
-		
-        break;
+		case "serviciosws":
+			if ($_POST['accion'] == "getServicios" && isset($_POST['parametros'])) {
+				$parametros = json_decode($_POST['parametros'], true);
+				if (isset($parametros['correo_electronico']))
+					if ($parametros['correo_electronico'] == "")
+						respuestaError("Error... no est&aacute; definido el par&aacute;metro telefono");
+			}
+			
+		break;
 }

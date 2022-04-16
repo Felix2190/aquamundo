@@ -1,7 +1,7 @@
 <?php
 define("DEVELOPER", true);
 if (! DEVELOPER) {
-    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
+    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/include/"); //agenda
 } else {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/aquamundo/ws/include/");
 }
@@ -48,27 +48,7 @@ switch($request_method){
             respuestaError("No se encontr&oacute; el token");
         }
   */      switch ($_POST["accion"]){
-            case "inegiestados":
-                require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_estado.inc.php";
-                $estados = new ModeloInegidomgeo_cat_estado();
-                $arrRes=$estados->obtenerEstados();
-                break;
-            case "inegimunicipios":
-                require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_municipio.inc.php";
-                $mun = new ModeloInegidomgeo_cat_municipio();
-                $arrRes=$mun->obtenerMunicipioXestado($parametros["cve_estado"]);
-				
-									
-				break;
-            case "usuarios":
-                require_once FOLDER_MODEL_EXTEND . "model.tausuario.inc.php";
-                $usuario = new Modelousuario();
-                $sucursal="";
-                if (isset($_POST['parametros'])&&isset($parametros['sucursal']))
-                    $sucursal=$parametros['sucursal'];
-                $arrRes=$usuario->obtenerUsuariosBySucursal($sucursal);
-                break;
-				
+            	
 			case "obtenerClienteByCorreo":
 				try {
 					
@@ -88,24 +68,42 @@ switch($request_method){
 				
 			break;
 			
-			
-			case "guardarCliente":
+			case "obtenerCliente":
 				try {
 					
 				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
 					$cliente = new ModeloCliente();
-					$arrRes=$cliente->guardarDatos($parametros);
-					if(count($arrRes)>0){
-						if (array_key_exists('error', $arrRes))
+					$arrRes=$cliente->obtenerCliente($parametros['dato']);
+					if (array_key_exists('error', $arrRes))
 						{
 							$mensaje="Error. ". $arrRes['error'];
 							$arrRes=null;
 						}
 						else
 							$mensaje = "OK";
-					}	
-					else 
-						$mensaje = "OKO";
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
+			break;
+			case "guardarCliente":
+				try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->guardarDatos($parametros);
+					//if(count($arrRes)>0){
+						if (array_key_exists('error', $arrRes))
+						{
+							respuestaError("Error. ". $arrRes['error']);
+							//$mensaje="Error. ". $arrRes['error'];
+							//$arrRes=null;
+						}
+						else
+							$mensaje = "OK";
+					//}	
+					//else 
+						//$mensaje = "NOK";
 				} catch (Exception $e) {
 				  $mensaje = $e;
 				}
@@ -131,120 +129,7 @@ switch($request_method){
 				
 			break;
 			
-			case "guardarEncuesta":
 			
-					require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
-					$encuesta = new ModeloEncuesta();
-					$arrRes=$encuesta->guardarDatos($parametros);
-					
-					
-					if(count($arrRes)>0){
-						if (array_key_exists('error', $arrRes))
-						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
-						}
-						else
-							$mensaje = "OK";
-					}	
-					else 
-						$mensaje = "OKO";
-				
-			break;
-			
-			case "guardarVisitaCliente":
-			
-					require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
-					$visita = new ModeloVisita();
-					$arrRes=$visita->guardarDatos($parametros);
-					if(count($arrRes)>0){
-						if (array_key_exists('error', $arrRes))
-						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
-						}
-						else
-							$mensaje = "OK";
-					}	
-					else 
-						$mensaje = "OKO";
-					
-				
-			break;
-			
-			case "getEncuestaByTelefono":
-			try {
-					
-				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
-					$cliente = new ModeloCliente();
-					$arrRes=$cliente->obtenerClienteByTelefono($parametros['telefono']);
-					if (array_key_exists('error', $arrRes))
-						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
-						}
-						else 
-						{
-							require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
-							$visita = new ModeloVisita();
-							
-							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
-							$mensaje = "OK";
-						}
-							
-				} catch (Exception $e) {
-				  $mensaje = $e;
-				}
-				
-			break;
-			
-			case "getEncuestaByCorreo":
-			try {
-					
-				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
-					$cliente = new ModeloCliente();
-					$arrRes=$cliente->obtenerClienteByCorreo($parametros['correo_electronico']);
-					if (array_key_exists('error', $arrRes))
-						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
-						}
-						else 
-						{
-							require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
-							$visita = new ModeloVisita();
-							
-							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
-							$mensaje = "OK";
-						}                                                                                                                                                                                                                                                                                                                                                   
-				} catch (Exception $e) {
-				  $mensaje = $e;
-				}
-				
-			
-			
-			break;
-			
-			case "getServicios":
-			try {
-					
-				  require_once FOLDER_MODEL_EXTEND . "model.servicio.inc.php";
-					$servicio = new ModeloServicio();
-					$arrRes=$servicio->getServicios();
-					if (array_key_exists('error', $arrRes))
-						{
-						    respuestaError("Error. ". $arrRes['error']);
-						    
-	///						$mensaje="Error. ". $arrRes['error'];
-//							$arrRes=null;
-						}
-						else
-							$mensaje = "OK";
-				} catch (Exception $e) {
-				  $mensaje = $e;
-				}
-				
-			break;
 		
         }
 //        $sesion->setFdfecha_ultima_peticion($fecha);
