@@ -64,29 +64,13 @@
 		    if ($result) {
 		        if (mysqli_num_rows($result) == 1) {
 		            $row = mysqli_fetch_assoc($result);
-		            $password = hash('sha512', $infoUsuario['password'] . $row['semilla']);//encriptamos el password con la semilla que esta en la base de datos
+		            $password = hash('sha512', $infoUsuario['password'] . $row['salt']);//encriptamos el password con la semilla que esta en la base de datos
 		            if ($row['password'] == $password) {//	verificamos si la contraseña de la base de datos es igual a la que ingresamos
-		                $arrInfoUsuario =$this->obtenerDatosUsuario($row['fiusuario_id']);// si son iguales obtenemos sus datos
+		                $arrInfoUsuario =$this->obtenerDatosUsuario($row['idUsuario']);// si son iguales obtenemos sus datos
 		                if (count($arrInfoUsuario) > 0) {
 		                    if ($row['estatus']=='activo') {// verificamos si se encuentra activo
-		                        
-		                        require_once FOLDER_MODEL_EXTEND.'model.tasucursal.inc.php';
-		                        require_once FOLDER_MODEL_EXTEND.'model.tarol.inc.php';
-		                        // obtiene informaci�n relacionada al usuario
-		                        $ubicacion = new ModeloTasucursal();
-		                        $ubicacion->setFisucursal_id($row['fisucursal_id']);
-		                        
-		                        $rol = new ModeloTarol();
-		                        $rol->setFirol_id($row['firol_id']);
-		                        
 		                        $arrInfoUsuario['userName'] = $infoUsuario['username'];//usuario
-		                        $arrInfoUsuario['nombreCompleto'] = $arrInfoUsuario['fcnombre']." ".$arrInfoUsuario['fcapellido_paterno']." ".$arrInfoUsuario['fcapellido_materno'];
-		                        $arrInfoUsuario['idRol'] = $row['firol_id'];//id rol
-		                        $arrInfoUsuario['idSucursal'] = $row['fisucursal_id'];//id sucursal
-		                        $arrInfoUsuario['idUsuario'] =$row['fiusuario_id'];//id usuario
-		                        $arrInfoUsuario['acceso'] = 'app';//
-		                        $arrInfoUsuario['sucursal']= $ubicacion->getFcnombre_sucursal(); //nombre de la sucursal
-		                        $arrInfoUsuario['rol']= $rol->getFcnombre_rol(); // nombre del rol
+		                        $arrInfoUsuario['nombreCompleto'] = $arrInfoUsuario['nombre']." ".$arrInfoUsuario['apellidos'];
 		                        return array(true,$arrInfoUsuario);	# retorna el array
 		                        
 		                    }else{
@@ -99,7 +83,7 @@
 		                }
 		            } else {
 		                // contraseña incorrecta
-		                return array(false,'La contrase&ntilde;a ingresada es incorrecta');
+		                return array(false,'La contrase&ntilde;a ingresada es incorrecta ');
 		            }
 		        } else {
 		            // El usuario no existe.
@@ -113,7 +97,7 @@
 		
 		public function obtenerDatosUsuario($idUsuario)
 		{//obtenemos los datos del usuario
-		    $query = "Select idUsuario, nombre, apellidos from usuario as u  inner join login as l on u.idUsuario=l.idUsuario where u.idUsuario=" . $idUsuario;
+		    $query = "Select u.idUsuario, nombre, apellidos from usuario as u  inner join login as l on u.idUsuario=l.idUsuario where u.idUsuario=" . $idUsuario;
 		    $arreglo = array();
 		    $resultado = mysqli_query($this->dbLink, $query);
 		    if ($resultado && mysqli_num_rows($resultado) > 0) {

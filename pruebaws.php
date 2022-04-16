@@ -6,21 +6,21 @@ curl_setopt_array($curl, [
     CURLOPT_USERAGENT => 'Codular Sample cURL Request',
     CURLOPT_POST => 1,
    
-//  CURLOPT_URL => 'http://localhost/aquamundo/ws/.php',
-/*    
+//  CURLOPT_URL => 'http://localhost/aquamundo/ws/combosws2.php',
+    
     CURLOPT_POSTFIELDS => [
         'token'=>'','parametros'=>json_encode(array(
-        'username' => 'prueba012',
-        'password' => 'prueba')), 'accion'=>'iniciar'
-    ]
+        'username' => 'Admin',
+        'password' => 'usuario123')), 'accion'=>'iniciar'
+    ],
 
-*/
-    CURLOPT_URL => 'http://localhost/aquamundo/ws/combosws.php',
-    
-    /*CURLOPT_POSTFIELDS => [
+
+    CURLOPT_URL => 'http://aquamundo.misointec.com.mx/ws/loginws.php',
+    /*
+    CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'inegimunicipios','parametros'=>json_encode(array('cve_estado'=>'17'))
-    ]*/
+        'accion'=>'inegimunicipios','parametros'=>json_encode(array('cve_estado'=>'01'))
+    ]
 	
 	/* //obtenerClienteByCorreo
 	CURLOPT_POSTFIELDS => [
@@ -100,11 +100,10 @@ curl_setopt_array($curl, [
 				))
     ]*/
 	//getEncuestaByCorreo
+	/*
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'getServicios','parametros'=>json_encode(
-			array('correo_electronico'=>'asd'
-				))
+        'accion'=>'getServicios'
     ]
 	/*
 	CURLOPT_POSTFIELDS => [

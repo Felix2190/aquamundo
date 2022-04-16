@@ -87,7 +87,7 @@
 		}
 public function obtenerMunicipioXestado($CVE_ENT)
 		{
-			$query = "Select CVE_MUN, NOM_MUN from inegidomgeo_cat_municipio where CVE_ENT=".$CVE_ENT;
+			$query = "Select CVE_MUN, NOM_MUN from inegidomgeo_cat_municipio where CVE_ENT='".$CVE_ENT."'";
 			$arreglo = array();
 			$resultado = mysqli_query($this->dbLink, $query);
 			if ($resultado && mysqli_num_rows($resultado) > 0) {

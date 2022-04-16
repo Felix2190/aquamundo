@@ -276,7 +276,7 @@ switch ($__FILE_NAME__) {
         }
         break;
     
-    case "combosws":
+    case "combosws2":
         if (! isset($_POST['token']) || $_POST['token'] == "")
             respuestaError("Error ... no est&aacute; definido el par&aacute;metro token");
         if (! isset($_POST['accion']) || $_POST['accion'] == "")

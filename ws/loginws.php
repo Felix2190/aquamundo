@@ -1,7 +1,7 @@
 <?php
 define("DEVELOPER", false);
 if (! DEVELOPER) {
-    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/include/"); //agenda
+    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/aquamundo/ws/include/");
 }
@@ -33,7 +33,7 @@ switch($request_method){
             $arrayData = validarUsuario();
             if (! $arrayData[0])
                 respuestaError($arrayData[1]);
-            $arrInfo = $arrayData[1];
+            $respuesta->setDatos( $arrayData[1]);
 
         }else {
                 respuestaError("No se reconoce la petici&oacute;n");

@@ -1,7 +1,7 @@
 <?php
 define("DEVELOPER", false);
 if (! DEVELOPER) {
-    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/include/"); //agenda
+    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/aquamundo/ws/include/");
 }
@@ -37,7 +37,7 @@ switch($request_method){
                 require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_municipio.inc.php";
                 $mun = new ModeloInegidomgeo_cat_municipio();
                 $arrRes=$mun->obtenerMunicipioXestado($parametros["cve_estado"]);
-                
+                break;
             default:
                 respuestaError("No se reconoce la petici&oacute;n");
                 break;
