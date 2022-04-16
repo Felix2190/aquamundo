@@ -15,29 +15,21 @@ curl_setopt_array($curl, [
     ]
 
 */
-    CURLOPT_URL => 'http://localhost/aquamundo/ws/combosws.php',
+    CURLOPT_URL => 'http://localhost/aquamundo/ws/clientews.php',
     
     /*CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'inegimunicipios','parametros'=>json_encode(array('cve_estado'=>'17'))
     ]*/
 	
-	/* //obtenerClienteByCorreo
+	/*//obtenerCliente
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'obtenerClienteByCorreo','parametros'=>json_encode(
-			array('correo_electronico'=>'alex_va_28@hotmail.com'
+        'accion'=>'obtenerCliente','parametros'=>json_encode(
+			array('dato'=>'492103092'
 				))
     ]*/
-    
-	/*//obtenerClienteByTelefono
-	CURLOPT_POSTFIELDS => [
-        'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'obtenerClienteByTelefono','parametros'=>json_encode(
-			array('telefono'=>'4921030923'
-				))
-    ]
-	*/
+	
 	/*//guardarCliente
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
@@ -46,7 +38,7 @@ curl_setopt_array($curl, [
 			'nombre' =>'David',
 			'apellido'=>'Vicencio',
 			'telefono'=>'492103093',
-			'correo_electronico'=>'alexandermaydorga@outlook.com',
+			'correo_electronico'=>'alexandddermaydorga@outlook.com',
 			'cve_estado' => '32',
 			'cve_municipio'=>'048'
 				))
@@ -56,7 +48,7 @@ curl_setopt_array($curl, [
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'obtenerClienteByEstado','parametros'=>json_encode(
-			array('cve_estado'=>'32'
+			array('cve_estado'=>'31'
 				))
     ]*/
 	/*//guardarEncuesta
@@ -99,13 +91,13 @@ curl_setopt_array($curl, [
 			array('correo_electronico'=>'alex_va_28@hotmail.com'
 				))
     ]*/
-	//getEncuestaByCorreo
+	/*//getEncuestaByCorreo
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'getServicios','parametros'=>json_encode(
 			array('correo_electronico'=>'asd'
 				))
-    ]
+    ]*/
 	/*
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',

@@ -81,6 +81,32 @@
 			return array('Error'=>'No hay datos para mostrar');
 		}
 		
+		public function obtenerCliente($dato)
+		{
+			$query = "Select idCliente,nombre, apellido, telefono,correo_electronico, cve_estado,cve_municipio from cliente where ";
+			if (is_numeric($dato))
+			{
+				$query .=" telefono = '" . $dato."'";
+				
+			}
+			else{
+				
+				$query.= " correo_electronico ='".$dato."'";
+			}
+			//return array('query'=>$query);
+			$arreglo = array();
+			$resultado = mysqli_query($this->dbLink, $query);
+			if ($resultado && mysqli_num_rows($resultado) > 0) {
+				while ($row_inf = mysqli_fetch_assoc($resultado)){
+					$arreglo = $row_inf;
+				}
+			}
+			//if(count($arreglo)>0)
+				return $arreglo;
+			
+			//return array('Error'=>'No hay datos para mostrar'.$query);
+		}
+		
 		
 		public function guardarDatos($parametros)
 		{
@@ -93,8 +119,20 @@
 			$this->setCve_estado($parametros['cve_estado']);
 			$this->setCve_municipio($parametros['cve_municipio']);
 			$this->setFecha_registro(date('Y-m-d H:i:s'));
-				
-			if(count($this->obtenerClienteByCorreo($parametros['correo_electronico']))>0)
+			
+			
+			$arr = $this->obtenerCliente($parametros['correo_electronico']);
+			if(count($arr)>0)
+				return array('error'=>"El correo ya est&aacute; registrado");
+			
+			$arr = $this->obtenerCliente($parametros['telefono']);
+			if(count($arr)>0)
+				return array('error'=>"El tel&eacute;fono ya est&aacute; registrado");
+			
+			return $this->Guardar();
+			//return $parametros;
+				/*return $this->obtenerCliente($parametros['correo_electronico']);
+			if(count($this->obtenerCliente($parametros['correo_electronico']))>0)
 				return array('error'=>"El correo ya est&aacute; registrado");
 			switch($parametros['telefono'])
 			{
@@ -107,9 +145,9 @@
 				if(count($this->obtenerClienteByTelefono($parametros['telefono']))>0)
 					return array('error'=>"El tel&eacute;fono ya est&aacute; registrado");
 				else
-					return $this->Guardar();
+					
 				break;
-			}
+			}*/
 			
 			
 		}
