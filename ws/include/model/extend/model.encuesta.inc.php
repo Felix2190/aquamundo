@@ -10,6 +10,7 @@
 		var $_nombreClase="ModeloBaseEncuesta";
 
 		var $__ss=array();
+		
 
 		#------------------------------------------------------------------------------------------------------#
 		#--------------------------------------------Inicializacion--------------------------------------------#
@@ -62,8 +63,22 @@
 			$this->setPregunta7($parametros['pregunta7']);	
 			$this->setIdEmpleadoMejor($parametros['idEmpleadoMejor']);
 			$this->setComentarios($parametros['comentarios']);
-			
 			return $this->Guardar();
+			//return array('e'=> getFirstEncuestaByIdCliente(52));
+		}
+		
+		public function getFirstEncuestaByIdCliente($idCliente)
+		{
+			$query = "SELECT e.idEncuesta,getFotoEmpleado(e.idEmpleadoMejor) as URL FROM visita v INNER JOIN encuesta e ON v.idVisita = e.idVisita and e.realizada = 0 WHERE v.idCliente =".$idCliente." ORDER BY v.fecha,v.idVisita ASC LIMIT 1";
+			//return array('e'=>'ca');
+			$arreglo = array();
+			$resultado = mysqli_query($this->dbLink, $query);
+			if ($resultado && mysqli_num_rows($resultado) > 0) {
+				while ($row_inf = mysqli_fetch_assoc($resultado)){
+					$arreglo = $row_inf;
+				}
+			}
+			return $arreglo;
 		}
 		#------------------------------------------------------------------------------------------------------#
 		#------------------------------------------------Otras-------------------------------------------------#

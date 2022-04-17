@@ -64,17 +64,17 @@ curl_setopt_array($curl, [
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'guardarEncuesta','parametros'=>json_encode(
-			array('idEncuesta'=>'0',
-			'idVisita' =>'2',
+			array('idEncuesta'=>'32',
+			'idVisita' =>'36',
 			'realizada'=>'1',
 			
 			'pregunta1'=>'3',
 			'pregunta2'=>'4',
 			'pregunta3'=>'5',
 			'pregunta4'=>'2',
-			'pregunta5'=>'3',
+			'pregunta5'=>'33',
 			'pregunta6'=>'4',
-			'pregunta7'=>'5',
+			'pregunta7'=>'15',
 			'idEmpleadoMejor'=>'1',
 			'comentarios' => 'sin comentarios'
 
@@ -84,16 +84,16 @@ curl_setopt_array($curl, [
 				))
     ]*/
 	
-	/*//getEncuestaByTelefono
+	//getEncuesta
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'getEncuestaByTelefono','parametros'=>json_encode(
-			array('telefono'=>'4921030923'
+        'accion'=>'getEncuesta','parametros'=>json_encode(
+			array('dato'=>'alexandermaydorga@outlook.co'//alexandermaydorga@outlook.com  492103093
 				))
-    ]*/
+    ]
 	
-	
-	/*//getEncuestaByCorreo
+	/*
+	//getEncuestaByCorreo
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'getEncuestaByCorreo','parametros'=>json_encode(
@@ -109,19 +109,28 @@ curl_setopt_array($curl, [
     
 	/*
 	//getEncuestaByCorreo
+
+	/*
+	//getEncuestaByCorreo
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'getServicios','parametros'=>json_encode(
 			array('correo_electronico'=>'asd'
 				))
     ]*/
-	/*
+
+	
+	/*//guardarVisita
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'guardarEncuesta','parametros'=>json_encode(
-			array('idEncuesta'=>'0'
+        'accion'=>'guardarVisita','parametros'=>json_encode(
+			array('idVisita'=>'0',
+			'fecha' =>'2022-03-01',
+			'idServicio'=>'2',
 			
-			
+			'idCliente'=>'52',
+			'acompanantes'=>'5',
+			'informacionExtra'=>'sin info'
 				))
     ]*/
 ]);

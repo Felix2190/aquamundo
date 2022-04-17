@@ -12,8 +12,10 @@
 		var $fecha='';
 		var $idServicio=0;
 		var $idCliente=0;
+		var $acompanantes=0;
+		var $informacionExtra='';
 
-		var $__s=array("idVisita","fecha","idServicio","idCliente");
+		var $__s=array("idVisita","fecha","idServicio","idCliente","acompanantes","informacionExtra");
 		var $__ss=array();
 
 		#------------------------------------------------------------------------------------------------------#
@@ -55,6 +57,15 @@
 			
 			$this->idCliente=$idCliente;
 		}
+		public function setAcompanantes($acompanantes)
+		{
+			
+			$this->acompanantes=$acompanantes;
+		}
+		public function setInformacionExtra($informacionExtra)
+		{
+			$this->informacionExtra=$informacionExtra;
+		}
 
 		#------------------------------------------------------------------------------------------------------#
 		#-----------------------------------------------Unsetter-----------------------------------------------#
@@ -83,6 +94,14 @@
 		{
 			return $this->idCliente;
 		}
+		public function getAcompanantes()
+		{
+			return $this->acompanantes;
+		}
+		public function getInformacionExtra()
+		{
+			return $this->informacionExtra;
+		}
 
 		#------------------------------------------------------------------------------------------------------#
 		#------------------------------------------------Querys------------------------------------------------#
@@ -101,6 +120,8 @@
 			$this->fecha='';
 			$this->idServicio=0;
 			$this->idCliente=0;
+			$this->acompanantes=0;
+			$this->informacionExtra='';
 		}
 
 		
@@ -110,15 +131,17 @@
 		{
 			try
 			{
-				$SQL="INSERT INTO visita(fecha,idServicio,idCliente)
-						VALUES('" . mysqli_real_escape_string($this->dbLink,$this->fecha) . "','" . mysqli_real_escape_string($this->dbLink,$this->idServicio) . "','" . mysqli_real_escape_string($this->dbLink,$this->idCliente) . "')";
+				$SQL="INSERT INTO visita(fecha,idServicio,idCliente,acompanantes,informacionExtra)
+						VALUES('" . mysqli_real_escape_string($this->dbLink,$this->fecha) . "','" . mysqli_real_escape_string($this->dbLink,$this->idServicio) . "','" . mysqli_real_escape_string($this->dbLink,$this->idCliente) . "','" . mysqli_real_escape_string($this->dbLink,$this->acompanantes) . "','" . mysqli_real_escape_string($this->dbLink,$this->informacionExtra) . "')";
 				$result=mysqli_query($this->dbLink,$SQL);
-				if(!$result){
+			//	return array('query'=>$SQL);
+				if(!$result)
+				{ 
 					$this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseVisita::Insertar]");
 					return array('error'=>$this->getStrSystemError());
 				}
 				$this->idVisita=mysqli_insert_id($this->dbLink);
-				return array('idVisita'=>$this->idVisita);
+				return array('idVisita'=> $this->idVisita);
 			}
 			catch (Exception $e)
 			{
@@ -132,7 +155,7 @@
 		{
 			try
 			{
-				$SQL="UPDATE visita SET fecha='" . mysqli_real_escape_string($this->dbLink,$this->fecha) . "',idServicio='" . mysqli_real_escape_string($this->dbLink,$this->idServicio) . "',idCliente='" . mysqli_real_escape_string($this->dbLink,$this->idCliente) . "'
+				$SQL="UPDATE visita SET fecha='" . mysqli_real_escape_string($this->dbLink,$this->fecha) . "',idServicio='" . mysqli_real_escape_string($this->dbLink,$this->idServicio) . "',idCliente='" . mysqli_real_escape_string($this->dbLink,$this->idCliente) . "',acompanantes='" . mysqli_real_escape_string($this->dbLink,$this->acompanantes) . "',informacionExtra='" . mysqli_real_escape_string($this->dbLink,$this->informacionExtra) . "'
 					WHERE idVisita=" . $this->idVisita;
 				
 				$result=mysqli_query($this->dbLink,$SQL);
@@ -174,7 +197,7 @@
 			try
 			{
 				$SQL="SELECT
-						idVisita,fecha,idServicio,idCliente
+						idVisita,fecha,idServicio,idCliente,acompanantes,informacionExtra
 					FROM visita
 					WHERE idVisita=" . mysqli_real_escape_string($this->dbLink,$this->idVisita);
 					
