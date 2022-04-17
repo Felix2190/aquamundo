@@ -57,6 +57,20 @@
 			return true;
 		}
 
-
+		public function getEmpleadosUrls()
+		{
+		    $query = "Select * from empleado ";
+		    $arreglo = array();
+		    $resultado = mysqli_query($this->dbLink, $query);
+		    if ($resultado && mysqli_num_rows($resultado) > 0) {
+		        while ($row_inf = mysqli_fetch_assoc($resultado)){
+		            $arreglo[$row_inf['idEmpleado']] = array('nombre'=>$row_inf['nombre'],'foto'=>$row_inf['foto']);
+		        }
+		    }
+		    return $arreglo;
+		    
+		    
+		}
+		
 	}
 

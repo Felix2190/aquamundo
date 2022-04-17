@@ -51,8 +51,7 @@
 		{
 			//$datos = array('nombre' =>$parametros['idEncuesta']);
 			$this->setIdEncuesta($parametros['idEncuesta']);
-			$this->setIdVisita($parametros['idVisita']);
-			$this->setRealizada($parametros['realizada']);
+			$this->setRealizada();
 			$this->setFecha_realizacion(date('Y-m-d H:i:s'));
 			$this->setPregunta1($parametros['pregunta1']);	
 			$this->setPregunta2($parametros['pregunta2']);	
@@ -69,7 +68,10 @@
 		
 		public function getFirstEncuestaByIdCliente($idCliente)
 		{
-			$query = "SELECT e.idEncuesta,getFotoEmpleado(e.idEmpleadoMejor) as URL FROM visita v INNER JOIN encuesta e ON v.idVisita = e.idVisita and e.realizada = 0 WHERE v.idCliente =".$idCliente." ORDER BY v.fecha,v.idVisita ASC LIMIT 1";
+			$query = "SELECT e.idEncuesta, nombre as nombreServicio FROM visita v 
+                    INNER JOIN encuesta e ON v.idVisita = e.idVisita and e.realizada = 0
+                    INNER JOIN servicio s ON s.idServicio = v.idServicio
+                     WHERE v.idCliente =".$idCliente." ORDER BY v.fecha,v.idVisita ASC LIMIT 1";
 			//return array('e'=>'ca');
 			$arreglo = array();
 			$resultado = mysqli_query($this->dbLink, $query);

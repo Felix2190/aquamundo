@@ -48,8 +48,7 @@
 		#------------------------------------------------------------------------------------------------------#
 		public function guardarDatos($parametros)
 		{
-			$this->setIdVisita($parametros['idVisita']);
-			$this->setFecha($parametros['fecha']);
+			$this->setFecha(date("Y-m-d"));
 			$this->setIdServicio($parametros['idServicio']);	
 			$this->setIdCliente($parametros['idCliente']);	
 			$this->setAcompanantes($parametros['acompanantes']);

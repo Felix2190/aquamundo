@@ -58,8 +58,6 @@ switch($request_method){
 						if (array_key_exists('error', $arrRes))
 						{
 							respuestaError("Error. ". $arrRes['error']);
-							//$mensaje="Error. ". $arrRes['error'];
-							//$arrRes=null;
 						}
 						else
 							$mensaje = "OK";

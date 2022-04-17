@@ -1,5 +1,5 @@
 <?php
-define("DEVELOPER", false);
+define("DEVELOPER", true);
 if (! DEVELOPER) {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {

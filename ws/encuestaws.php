@@ -54,7 +54,7 @@ switch($request_method){
 					
 				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
 					$cliente = new ModeloCliente();
-					$arrRes=$cliente->obtenerCliente($parametros['dato']);
+					$arrRes=$cliente->existeCliente($parametros['idCliente']);
 					//return $arrRes;
 					if (array_key_exists('error', $arrRes))
 						{
@@ -65,8 +65,12 @@ switch($request_method){
 						{
 							require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
 							$visita = new ModeloEncuesta();
+							$arrRes=$visita->getFirstEncuestaByIdCliente($parametros['idCliente']);
 							
-							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
+							require_once FOLDER_MODEL_EXTEND . "model.empleado.inc.php";
+							$empleado = new ModeloEmpleado();
+							
+							$arrRes['empleados']=$empleado->getEmpleadosUrls();
 							$mensaje = "OK";
 						}                                                                                                                                                                                                                                                                                                                                                   
 				} catch (Exception $e) {

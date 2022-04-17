@@ -1,5 +1,5 @@
 <?php
-define("DEVELOPER", false);
+define("DEVELOPER", true);
 if (! DEVELOPER) {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {
@@ -23,31 +23,11 @@ require_once FOLDER_INCLUDE . "lib/webservice/wsRespuesta.inc.php";
 $request_method=$_SERVER["REQUEST_METHOD"];
 $fecha = date("Y-m-d H:i:s");
 
-//$respuesta = new clsWsRespuesta();
-//$respuesta = new clsWsRespuesta();
 switch($request_method){
     case 'POST':
         require_once FOLDER_INCLUDE . "lib/webservice/requestParametros.php";
-/*        require_once FOLDER_MODEL_EXTEND . "model.tasesion_app.inc.php";
-        $sesion = new ModeloTasesion_app();
-        $id = intval($sesion->comprobarToken($_POST['token']));
-        if ($id > 0) {
-            $sesion->setFisesion_id($id);
-            $ultimaSesion = $sesion->getFdfecha_ultima_peticion();
-            $fechaSesion = new DateTime($ultimaSesion);
-            $fechaActual = new DateTime(date("Y-m-d H:i:s"));
-            $diff = $fechaSesion->diff($fechaActual);
-            $segundos = (($diff->days * 24) * 60 * 60) + ($diff->h * 60 * 60) + ($diff->i * 60) + $diff->s;
-            if ($segundos > $tiempoSegSesion) {
-                $sesion->setFisesion_id($id);
-                $sesion->setFcestatusInactiva();
-                $sesion->Guardar();
-                respuestaError("El tiempo de sesi&oacute;n ha excesido ", false);
-            }
-        } else {
-            respuestaError("No se encontr&oacute; el token");
-        }
-  */      switch ($_POST["accion"]){
+
+        switch ($_POST["accion"]){
             case "inegiestados":
                 require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_estado.inc.php";
                 $estados = new ModeloInegidomgeo_cat_estado();
@@ -57,86 +37,21 @@ switch($request_method){
                 require_once FOLDER_MODEL_EXTEND . "model.inegidomgeo_cat_municipio.inc.php";
                 $mun = new ModeloInegidomgeo_cat_municipio();
                 $arrRes=$mun->obtenerMunicipioXestado($parametros["cve_estado"]);
-				
-									
-				break;
-            case "usuarios":
-                require_once FOLDER_MODEL_EXTEND . "model.tausuario.inc.php";
-                $usuario = new Modelousuario();
-                $sucursal="";
-                if (isset($_POST['parametros'])&&isset($parametros['sucursal']))
-                    $sucursal=$parametros['sucursal'];
-                $arrRes=$usuario->obtenerUsuariosBySucursal($sucursal);
                 break;
-				
-			
-			case "getEncuesta":
-			try {
-					
-				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
-					$cliente = new ModeloCliente();
-					$arrRes=$cliente->obtenerCliente($parametros['dato']);
-					//return $arrRes;
-					if (array_key_exists('error', $arrRes))
-						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
-						}
-						else 
-						{
-							require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
-							$visita = new ModeloEncuesta();
-							
-							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
-							$mensaje = "OK";
-						}                                                                                                                                                                                                                                                                                                                                                   
-				} catch (Exception $e) {
-				  $mensaje = $e;
-				}
-				
-			
-			
-			break;
-			
-			/*case "getServicios":
-			try {
-					
-				  require_once FOLDER_MODEL_EXTEND . "model.servicio.inc.php";
-					$servicio = new ModeloServicio();
-					$arrRes=$servicio->getServicios();
-					if (array_key_exists('error', $arrRes))
-						{
-						    respuestaError("Error. ". $arrRes['error']);
-						    
-	///						$mensaje="Error. ". $arrRes['error'];
-//							$arrRes=null;
-						}
-						else
-							$mensaje = "OK";
-				} catch (Exception $e) {
-				  $mensaje = $e;
-				}
-				
-			break;*/
-		
+            default:
+                respuestaError("No se reconoce la petici&oacute;n");
+                break;
         }
-//        $sesion->setFdfecha_ultima_peticion($fecha);
-  //      $sesion->Guardar();
         
         $respuesta = new clsWsRespuesta();
         $respuesta->setRespuesta(true);
         $respuesta->setDatos($arrRes);
-		
-		$respuesta->setMensaje($mensaje);
         
         break;
         
     default:
         header("HTTP/1.0 405 Method Not Allowed");
         header('Content-Type: application/json');
-		
-		
-        
         break;
 }
 
