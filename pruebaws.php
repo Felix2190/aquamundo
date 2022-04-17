@@ -15,7 +15,7 @@ curl_setopt_array($curl, [
     ]
 
 */
-    CURLOPT_URL => 'http://localhost/aquamundo/ws/encuestaws.php',
+    CURLOPT_URL => 'http://localhost/aquamundo/ws/combosws.php',
     
     /*CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
@@ -78,8 +78,8 @@ curl_setopt_array($curl, [
 	//getEncuesta
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
-        'accion'=>'getEncuestaByCorreo','parametros'=>json_encode(
-			array('dato'=>'alexandermaydorga@outlook.com'//alexandermaydorga@outlook.com
+        'accion'=>'getEncuesta','parametros'=>json_encode(
+			array('dato'=>'alexandermaydorga@outlook.com'//
 				))
     ]
 	

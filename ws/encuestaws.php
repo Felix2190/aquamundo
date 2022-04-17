@@ -49,22 +49,23 @@ switch($request_method){
         }
   */      switch ($_POST["accion"]){
 			
-			case "getEncuestaByCorreo":
+			case "getEncuestaCliente":
 			return array('e'=>'que onda');
-			/*try {
+			try {
 					
 					require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
 					$cliente = new ModeloCliente();
 					$arrRes=$cliente->obtenerClienteByCorreo($parametros['correo_electronico']);
 					if (array_key_exists('error', $arrRes))
 						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
+							respuestaError("Error. ". $arrRes['error']);
+							//$mensaje="Error. ". $arrRes['error'];
+							//$arrRes=null;
 						}
 						else 
 						{
-							require_once FOLDER_MODEL_EXTEND . "model.visita.inc.php";
-							$visita = new ModeloVisita();
+							require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
+							$visita = new ModeloEncuesta();
 							
 							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
 							$mensaje = "OK";
@@ -73,7 +74,7 @@ switch($request_method){
 				  $mensaje = $e;
 				}
 				
-				*/
+				
 			
 			break;
             

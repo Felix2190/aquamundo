@@ -70,7 +70,32 @@ switch($request_method){
                 break;
 				
 			
+			case "getEncuesta":
+			try {
+					
+				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
+					$cliente = new ModeloCliente();
+					$arrRes=$cliente->obtenerClienteByCorreo($parametros['dato']);
+					if (array_key_exists('error', $arrRes))
+						{
+							$mensaje="Error. ". $arrRes['error'];
+							$arrRes=null;
+						}
+						else 
+						{
+							require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
+							$visita = new ModeloEncuesta();
+							
+							$arrRes=$visita->getFirstEncuestaByIdCliente($arrRes['idCliente']);
+							$mensaje = "OK";
+						}                                                                                                                                                                                                                                                                                                                                                   
+				} catch (Exception $e) {
+				  $mensaje = $e;
+				}
+				
 			
+			
+			break;
 			
 			/*case "getServicios":
 			try {
