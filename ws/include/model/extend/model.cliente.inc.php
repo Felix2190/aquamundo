@@ -101,11 +101,12 @@
 					$arreglo = $row_inf;
 				}
 			}
-			//if(count($arreglo)>0)
+			if(count($arreglo)>0)
 				return $arreglo;
 			
-			//return array('Error'=>'No hay datos para mostrar'.$query);
+			return array('error'=>'No hay datos para mostrar');
 		}
+		
 		
 		
 		public function guardarDatos($parametros)

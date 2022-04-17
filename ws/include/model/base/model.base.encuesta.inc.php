@@ -236,7 +236,7 @@
 				if(!$result)
 					return $this->setSystemError("Error en la actualizacion de registro.","[" . $SQL . "][" . mysqli_error() . "][ModeloBaseEncuesta::Update]");
 				
-				return true;
+				return array('actualizacion'=>true);
 			}
 			catch (Exception $e)
 			{
