@@ -1,0 +1,1 @@
+CREATE FUNCTION getFotoEmpleado(id int) RETURNS VARCHAR(200) BEGIN declare url varchar(500); select foto into url from empleado where idEmpleado = id; RETURN url; END

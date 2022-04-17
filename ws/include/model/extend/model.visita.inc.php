@@ -52,7 +52,8 @@
 			$this->setFecha($parametros['fecha']);
 			$this->setIdServicio($parametros['idServicio']);	
 			$this->setIdCliente($parametros['idCliente']);	
-			
+			$this->setAcompanantes($parametros['acompanantes']);
+			$this->setInformacionExtra($parametros['informacionExtra']);
 			return $this->Guardar();
 		}
 		

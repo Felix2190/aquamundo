@@ -107,6 +107,29 @@
 			//return array('Error'=>'No hay datos para mostrar'.$query);
 		}
 		
+		public function obtenerClienteTelefonoCorreo($telefono,$correo)
+		{
+			$query = "Select idCliente,nombre, apellido, telefono,correo_electronico, cve_estado,cve_municipio from cliente where correo_electronico='".$correo."'";
+			if (is_numeric($telefono))
+			{
+				$query .=" OR telefono = '" . $telefono."'";
+				
+			}
+			
+			return array('query'=>$query);
+			$arreglo = array();
+			$resultado = mysqli_query($this->dbLink, $query);
+			if ($resultado && mysqli_num_rows($resultado) > 0) {
+				while ($row_inf = mysqli_fetch_assoc($resultado)){
+					$arreglo = $row_inf;
+				}
+			}
+			//if(count($arreglo)>0)
+				return $arreglo;
+			
+			//return array('Error'=>'No hay datos para mostrar'.$query);
+		}
+		
 		
 		public function guardarDatos($parametros)
 		{
