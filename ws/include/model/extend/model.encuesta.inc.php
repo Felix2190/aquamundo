@@ -69,8 +69,8 @@
 		
 		public function getFirstEncuestaByIdCliente($idCliente)
 		{
-			//$query = "SELECT e.*,getFotoEmpleado(e.idEmpleadoMejor) as URL FROM visita v INNER JOIN encuesta e ON v.idVisita = e.idVisita and e.realizada = 0 WHERE v.idCliente =".$idCliente." ORDER BY v.fecha ASC LIMIT 1";
-			return array('e'=>'ca');
+			$query = "SELECT e.*,getFotoEmpleado(e.idEmpleadoMejor) as URL FROM visita v INNER JOIN encuesta e ON v.idVisita = e.idVisita and e.realizada = 0 WHERE v.idCliente =".$idCliente." ORDER BY v.fecha ASC LIMIT 1";
+			//return array('e'=>'ca');
 			$arreglo = array();
 			$resultado = mysqli_query($this->dbLink, $query);
 			if ($resultado && mysqli_num_rows($resultado) > 0) {
