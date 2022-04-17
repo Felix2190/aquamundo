@@ -7,46 +7,51 @@ curl_setopt_array($curl, [
     CURLOPT_POST => 1,
    
 //  CURLOPT_URL => 'http://localhost/aquamundo/ws/combosws2.php',
-    
+ /*   
     CURLOPT_POSTFIELDS => [
         'token'=>'','parametros'=>json_encode(array(
         'username' => 'Admin',
         'password' => 'usuario123')), 'accion'=>'iniciar'
     ],
 
-
-    CURLOPT_URL => 'http://aquamundo.misointec.com.mx/ws/loginws.php',
+*/
+    CURLOPT_URL => 'http://aquamundo.misointec.com.mx/ws/combosws.php',
     /*
     CURLOPT_POSTFIELDS => [
 */
-    CURLOPT_URL => 'http://localhost/aquamundo/ws/clientews.php',
+  //  CURLOPT_URL => 'http://localhost/aquamundo/ws/clientews.php',
     
     /*CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'inegimunicipios','parametros'=>json_encode(array('cve_estado'=>'01'))
     ]
 	
-	/*//obtenerCliente
+	/
+	 
+	 
+	 //obtenerCliente
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'obtenerCliente','parametros'=>json_encode(
-			array('dato'=>'492103092'
+			array('dato'=>'7331258053'
 				))
-    ]*/
+    ]
 	
-	/*//guardarCliente
-	CURLOPT_POSTFIELDS => [
+	//guardarCliente
+	/*
+    CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'guardarCliente','parametros'=>json_encode(
-			array('idCliente'=>'0',
-			'nombre' =>'David',
-			'apellido'=>'Vicencio',
-			'telefono'=>'492103093',
-			'correo_electronico'=>'alexandddermaydorga@outlook.com',
+			array(
+			'nombre' =>'Fati',
+			'apellido'=>'Ortiz',
+			'telefono'=>'7331258003',
+			'correo_electronico'=>'fati@gmail.com',
 			'cve_estado' => '32',
 			'cve_municipio'=>'048'
 				))
-    ]*/
+    ]
+    */
     
 	/*//obtenerClientesByEstado
 	CURLOPT_POSTFIELDS => [
@@ -96,12 +101,14 @@ curl_setopt_array($curl, [
 				))
     ]*/
 	//getEncuestaByCorreo
-	/*
+	
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'getServicios'
     ]
-	/*//getEncuestaByCorreo
+    
+	/*
+	//getEncuestaByCorreo
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'getServicios','parametros'=>json_encode(

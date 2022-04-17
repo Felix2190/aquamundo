@@ -48,15 +48,12 @@
 		#------------------------------------------------------------------------------------------------------#
 		public function getServicios()
 		{
-			$query = "Select idServicio, nombre, descripcion, precio ,idEmpleado  
-			from servicio ";
+			$query = "Select idServicio, nombre from servicio ";
 			$arreglo = array();
-			$contador=0;
 			$resultado = mysqli_query($this->dbLink, $query);
 			if ($resultado && mysqli_num_rows($resultado) > 0) {
 				while ($row_inf = mysqli_fetch_assoc($resultado)){
-					$arreglo[$contador] = $row_inf;
-					$contador++;
+					$arreglo[$row_inf['idServicio']] = $row_inf['nombre'];
 				}
 			}
 			return $arreglo;

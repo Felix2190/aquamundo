@@ -83,7 +83,7 @@
 		
 		public function obtenerCliente($dato)
 		{
-			$query = "Select idCliente,nombre, apellido, telefono,correo_electronico, cve_estado,cve_municipio from cliente where ";
+			$query = "Select idCliente from cliente where ";
 			if (is_numeric($dato))
 			{
 				$query .=" telefono = '" . $dato."'";

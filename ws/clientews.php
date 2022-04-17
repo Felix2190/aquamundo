@@ -1,7 +1,7 @@
 <?php
-define("DEVELOPER", true);
+define("DEVELOPER", false);
 if (! DEVELOPER) {
-    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/include/"); //agenda
+    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/aquamundo/ws/include/");
 }
@@ -79,7 +79,9 @@ switch($request_method){
 							$mensaje="Error. ". $arrRes['error'];
 							$arrRes=null;
 						}
-						else
+						else if(count($arrRes)==0){
+						    respuestaError("No exite usuario"); 
+						}else
 							$mensaje = "OK";
 				} catch (Exception $e) {
 				  $mensaje = $e;
