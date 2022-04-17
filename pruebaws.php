@@ -15,7 +15,7 @@ curl_setopt_array($curl, [
     ]
 
 */
-    CURLOPT_URL => 'http://localhost/aquamundo/ws/combosws.php',
+    CURLOPT_URL => 'http://localhost/aquamundo/ws/encuestaws.php',
     
     /*CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
@@ -26,7 +26,7 @@ curl_setopt_array($curl, [
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'obtenerCliente','parametros'=>json_encode(
-			array('dato'=>'492103092'
+			array('dato'=>'492103093'
 				))
     ]*/
 	
@@ -79,7 +79,7 @@ curl_setopt_array($curl, [
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'getEncuesta','parametros'=>json_encode(
-			array('dato'=>'alexandermaydorga@outlook.com'//
+			array('dato'=>'alexandermaydorga@outlook.co'//alexandermaydorga@outlook.com  492103093
 				))
     ]
 	

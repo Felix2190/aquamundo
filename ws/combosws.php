@@ -75,7 +75,8 @@ switch($request_method){
 					
 				  require_once FOLDER_MODEL_EXTEND . "model.cliente.inc.php";
 					$cliente = new ModeloCliente();
-					$arrRes=$cliente->obtenerClienteByCorreo($parametros['dato']);
+					$arrRes=$cliente->obtenerCliente($parametros['dato']);
+					//return $arrRes;
 					if (array_key_exists('error', $arrRes))
 						{
 							$mensaje="Error. ". $arrRes['error'];

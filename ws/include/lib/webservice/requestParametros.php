@@ -12,7 +12,7 @@ $arrayParametrosInegi=array("inegimunicipios","inegilocalidades");
 $arrayCombos=array("empresasprov","inegiestados","inegimunicipios","inegilocalidades","sucursales","roles","tipoarticulos","usuarios","categorias","getServicios","getEncuesta");
 $arrayCliente = array("obtenerClienteByEstado","obtenerCliente","guardarCliente");
 $arrayVisita = array("guardarVisita");
-$arrayEncuesta = array("guardarEncuesta");
+$arrayEncuesta = array("guardarEncuesta","getEncuesta");
 switch ($__FILE_NAME__) {
     case "loginws":
         if (! isset($_POST['accion']) || $_POST['accion'] == "")
@@ -415,12 +415,13 @@ switch ($__FILE_NAME__) {
 			
 			
 			
-			if ($_POST['accion'] == "getEncuestaCliente" && isset($_POST['parametros'])) {
+			if ($_POST['accion'] == "getEncuesta" && isset($_POST['parametros'])) {
 				$parametros = json_decode($_POST['parametros'], true);
 				if (isset($parametros['dato']))
 					if ($parametros['dato'] == "")
 						respuestaError("Error... no est&aacute; definido el par&aacute;metro dato");
 			}
+		
 			
 			
 			
