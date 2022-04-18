@@ -1,5 +1,5 @@
 <?php
-define("DEVELOPER", true);
+define("DEVELOPER", false);
 if (! DEVELOPER) {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {
@@ -125,7 +125,10 @@ switch($request_method){
 				
 			break;
 			
-			
+			default:
+			    respuestaError("No se reconoce la petici&oacute;n");
+			    break;
+			    
 		
         }
 //        $sesion->setFdfecha_ultima_peticion($fecha);

@@ -1,7 +1,7 @@
 <?php
-define("DEVELOPER", true);
+define("DEVELOPER", false);
 if (! DEVELOPER) {
-    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/include/"); //agenda
+    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/aquamundo/ws/include/");
 }
@@ -69,7 +69,10 @@ switch($request_method){
 			break;
 			
 			
-		
+			default:
+			    respuestaError("No se reconoce la petici&oacute;n");
+			    break;
+			    
         }
 //        $sesion->setFdfecha_ultima_peticion($fecha);
   //      $sesion->Guardar();

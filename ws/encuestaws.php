@@ -1,7 +1,7 @@
 <?php
-define("DEVELOPER", true);
+define("DEVELOPER", false);
 if (! DEVELOPER) {
-    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/include/"); //agenda
+    define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/ws/include/"); //agenda
 } else {
     define("FOLDER_INCLUDE", $_SERVER['DOCUMENT_ROOT'] . "/aquamundo/ws/include/");
 }
@@ -58,8 +58,7 @@ switch($request_method){
 					//return $arrRes;
 					if (array_key_exists('error', $arrRes))
 						{
-							$mensaje="Error. ". $arrRes['error'];
-							$arrRes=null;
+						    respuestaError("Error. " . $arrRes['error']);
 						}
 						else 
 						{
@@ -74,7 +73,7 @@ switch($request_method){
 							$mensaje = "OK";
 						}                                                                                                                                                                                                                                                                                                                                                   
 				} catch (Exception $e) {
-				  $mensaje = $e;
+				    respuestaError("Error. " . $e);
 				}
 				
 			
@@ -85,6 +84,12 @@ switch($request_method){
 			
 					require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
 					$encuesta = new ModeloEncuesta();
+					$encuesta->setIdEncuesta($parametros['idEncuesta']);
+					if($encuesta->getIdEncuesta()==0){
+					    respuestaError("Error, encuesta no encontrada");
+					}else if ($encuesta->getRealizada()==1){
+					    respuestaError("Error, la encuesta ya ha sido evaluada");
+					}
 					$arrRes=$encuesta->guardarDatos($parametros);
 					
 					
@@ -101,7 +106,10 @@ switch($request_method){
 				
 			break;
 			
-			
+			default:
+			    respuestaError("No se reconoce la petici&oacute;n");
+			    break;
+			    
 		
         }
 //        $sesion->setFdfecha_ultima_peticion($fecha);
