@@ -13,11 +13,13 @@
 		var $apellido='';
 		var $telefono='';
 		var $correo_electronico='';
+		var $Extranjero='0';
+		var $Lugar='';
 		var $cve_estado='';
 		var $cve_municipio='';
 		var $fecha_registro='';
 
-		var $__s=array("idCliente","nombre","apellido","telefono","correo_electronico","cve_estado","cve_municipio","fecha_registro");
+		var $__s=array("idCliente","nombre","apellido","telefono","correo_electronico","Extranjero","Lugar","cve_estado","cve_municipio","fecha_registro");
 		var $__ss=array();
 
 		#------------------------------------------------------------------------------------------------------#
@@ -64,6 +66,14 @@
 			
 			$this->correo_electronico=$correo_electronico;
 		}
+		public function setExtranjero()
+		{
+			$this->Extranjero=1;
+		}
+		public function setLugar($Lugar)
+		{
+			$this->Lugar=$Lugar;
+		}
 		public function setCve_estado($cve_estado)
 		{
 			$this->cve_estado=$cve_estado;
@@ -82,6 +92,10 @@
 		#------------------------------------------------------------------------------------------------------#
 
 		
+		public function unsetExtranjero()
+		{
+			$this->Extranjero=0;
+		}
 
 		#------------------------------------------------------------------------------------------------------#
 		#------------------------------------------------Getter------------------------------------------------#
@@ -107,6 +121,14 @@
 		public function getCorreo_electronico()
 		{
 			return $this->correo_electronico;
+		}
+		public function getExtranjero()
+		{
+			return $this->Extranjero;
+		}
+		public function getLugar()
+		{
+			return $this->Lugar;
 		}
 		public function getCve_estado()
 		{
@@ -139,6 +161,8 @@
 			$this->apellido='';
 			$this->telefono='';
 			$this->correo_electronico='';
+			$this->Extranjero='0';
+			$this->Lugar='';
 			$this->cve_estado='';
 			$this->cve_municipio='';
 			$this->fecha_registro='';
@@ -151,15 +175,14 @@
 		{
 			try
 			{
-				$SQL="INSERT INTO cliente(nombre,apellido,telefono,correo_electronico,cve_estado,cve_municipio,fecha_registro)
-						VALUES('" . mysqli_real_escape_string($this->dbLink,$this->nombre) . "','" . mysqli_real_escape_string($this->dbLink,$this->apellido) . "','" . mysqli_real_escape_string($this->dbLink,$this->telefono) . "','" . mysqli_real_escape_string($this->dbLink,$this->correo_electronico) . "','" . mysqli_real_escape_string($this->dbLink,$this->cve_estado) . "','" . mysqli_real_escape_string($this->dbLink,$this->cve_municipio) . "','" . mysqli_real_escape_string($this->dbLink,$this->fecha_registro) . "')";
+				$SQL="INSERT INTO cliente(nombre,apellido,telefono,correo_electronico,Extranjero,Lugar,cve_estado,cve_municipio,fecha_registro)
+						VALUES('" . mysqli_real_escape_string($this->dbLink,$this->nombre) . "','" . mysqli_real_escape_string($this->dbLink,$this->apellido) . "','" . mysqli_real_escape_string($this->dbLink,$this->telefono) . "','" . mysqli_real_escape_string($this->dbLink,$this->correo_electronico) . "','" . mysqli_real_escape_string($this->dbLink,$this->Extranjero) . "','" . mysqli_real_escape_string($this->dbLink,$this->Lugar) . "','" . mysqli_real_escape_string($this->dbLink,$this->cve_estado) . "','" . mysqli_real_escape_string($this->dbLink,$this->cve_municipio) . "','" . mysqli_real_escape_string($this->dbLink,$this->fecha_registro) . "')";
 				$result=mysqli_query($this->dbLink,$SQL);
-				if(!$result){
-					 $this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseCliente::Insertar]");
-					 return array('error'=>$this->getStrSystemError());
-				}
+				if(!$result)
+					return $this->setSystemError("Error en la insercion de registro.","[" . $SQL . "][" . mysqli_error($this->dbLink) . "][ModeloBaseCliente::Insertar]");
+				
 				$this->idCliente=mysqli_insert_id($this->dbLink);
-				return array('idCliente'=>$this->idCliente);
+				return true;
 			}
 			catch (Exception $e)
 			{
@@ -173,7 +196,7 @@
 		{
 			try
 			{
-				$SQL="UPDATE cliente SET nombre='" . mysqli_real_escape_string($this->dbLink,$this->nombre) . "',apellido='" . mysqli_real_escape_string($this->dbLink,$this->apellido) . "',telefono='" . mysqli_real_escape_string($this->dbLink,$this->telefono) . "',correo_electronico='" . mysqli_real_escape_string($this->dbLink,$this->correo_electronico) . "',cve_estado='" . mysqli_real_escape_string($this->dbLink,$this->cve_estado) . "',cve_municipio='" . mysqli_real_escape_string($this->dbLink,$this->cve_municipio) . "',fecha_registro='" . mysqli_real_escape_string($this->dbLink,$this->fecha_registro) . "'
+				$SQL="UPDATE cliente SET nombre='" . mysqli_real_escape_string($this->dbLink,$this->nombre) . "',apellido='" . mysqli_real_escape_string($this->dbLink,$this->apellido) . "',telefono='" . mysqli_real_escape_string($this->dbLink,$this->telefono) . "',correo_electronico='" . mysqli_real_escape_string($this->dbLink,$this->correo_electronico) . "',Extranjero='" . mysqli_real_escape_string($this->dbLink,$this->Extranjero) . "',Lugar='" . mysqli_real_escape_string($this->dbLink,$this->Lugar) . "',cve_estado='" . mysqli_real_escape_string($this->dbLink,$this->cve_estado) . "',cve_municipio='" . mysqli_real_escape_string($this->dbLink,$this->cve_municipio) . "',fecha_registro='" . mysqli_real_escape_string($this->dbLink,$this->fecha_registro) . "'
 					WHERE idCliente=" . $this->idCliente;
 				
 				$result=mysqli_query($this->dbLink,$SQL);
@@ -215,7 +238,7 @@
 			try
 			{
 				$SQL="SELECT
-						idCliente,nombre,apellido,telefono,correo_electronico,cve_estado,cve_municipio,fecha_registro
+						idCliente,nombre,apellido,telefono,correo_electronico,Extranjero,Lugar,cve_estado,cve_municipio,fecha_registro
 					FROM cliente
 					WHERE idCliente=" . mysqli_real_escape_string($this->dbLink,$this->idCliente);
 					
@@ -249,17 +272,17 @@
 		
 		public function Guardar()
 		{
-			/*if(!$this->validarDatos())
+			if(!$this->validarDatos())
 				return false;
 			if($this->getError())
-				return false;*/
+				return false;
 			if($this->idCliente==0)
-				return $this->Insertar();
+				$this->Insertar();
 			else
-				return $this->Actualizar();
-			/*if($this->getError())
-				return false;*/
-			return false;
+				$this->Actualizar();
+			if($this->getError())
+				return false;
+			return true;
 		}
 		
 	}

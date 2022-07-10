@@ -151,8 +151,16 @@
 			$this->setApellido($parametros['apellido']);
 			$this->setTelefono($parametros['telefono']);
 			$this->setCorreo_electronico($parametros['correo_electronico']);
-			$this->setCve_estado($parametros['cve_estado']);
-			$this->setCve_municipio($parametros['cve_municipio']);
+			
+			if (intval($parametros['extranjero'])==1){
+			    $this->setLugar($parametros['lugar']);
+			    $this->setExtranjero();
+			}else{
+			    $this->unsetExtranjero();
+    			$this->setCve_estado($parametros['cve_estado']);
+    			$this->setCve_municipio($parametros['cve_municipio']);
+			}
+			
 			$this->setFecha_registro(date('Y-m-d H:i:s'));
 			
 			$arr = $this->buscarCliente($parametros['correo_electronico']);

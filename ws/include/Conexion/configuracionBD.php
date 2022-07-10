@@ -6,9 +6,9 @@
 if (! DEVELOPER) {
     /* variables de la BD */
     define("BD_HOST", "localhost");
-    define("BD_USER", "");
-    define("BD_PASS", "");
-    define("BD_DB", "");
+    define("BD_USER", "aquamundoacapulc");
+    define("BD_PASS", "Hola2022+");
+    define("BD_DB", "aquamund_acayat2022");
     define("BD_CHARSET", "utf8");
 } else {
     

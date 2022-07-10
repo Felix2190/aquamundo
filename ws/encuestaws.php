@@ -28,6 +28,7 @@ $fecha = date("Y-m-d H:i:s");
 switch($request_method){
     case 'POST':
         require_once FOLDER_INCLUDE . "lib/webservice/requestParametros.php";
+        
 /*        require_once FOLDER_MODEL_EXTEND . "model.tasesion_app.inc.php";
         $sesion = new ModeloTasesion_app();
         $id = intval($sesion->comprobarToken($_POST['token']));
@@ -65,7 +66,9 @@ switch($request_method){
 							require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
 							$visita = new ModeloEncuesta();
 							$arrRes=$visita->getFirstEncuestaByIdCliente($parametros['idCliente']);
-							
+							if (count($arrRes)==0){
+							    respuestaError("Este cliente no tiene encuestas pendientes" );
+							}
 							require_once FOLDER_MODEL_EXTEND . "model.empleado.inc.php";
 							$empleado = new ModeloEmpleado();
 							
@@ -84,9 +87,9 @@ switch($request_method){
 			
 					require_once FOLDER_MODEL_EXTEND . "model.encuesta.inc.php";
 					$encuesta = new ModeloEncuesta();
-					$encuesta->setIdEncuesta($parametros['idEncuesta']);
+					$encuesta->setIdEncuesta(intval($parametros['idEncuesta']));
 					if($encuesta->getIdEncuesta()==0){
-					    respuestaError("Error, encuesta no encontrada");
+					    respuestaError("Error, encuesta no encontrada ".$encuesta->getStrError());
 					}else if ($encuesta->getRealizada()==1){
 					    respuestaError("Error, la encuesta ya ha sido evaluada");
 					}

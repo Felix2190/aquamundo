@@ -8,12 +8,29 @@ $arrayPrincipal=array("listado","nuevo","buscar","detalle");
 $arrayRol=array("listado","nuevo");
 $arrayCompraVenta=array("buscar","detalle");
 $arrayParametros=array("buscar","detalle","nuevo","iniciar");
-$arrayParametrosInegi=array("inegimunicipios","inegilocalidades");
-$arrayCombos=array("empresasprov","inegiestados","inegimunicipios","inegilocalidades","sucursales","roles","tipoarticulos","usuarios","categorias","getServicios","getEncuesta");
+$arrayParametrosInegi=array("inegimunicipios","inegilocalidades","iniciar");
+$arrayCombos=array("empresasprov","inegiestados","inegimunicipios","inegilocalidades","sucursales","roles","tipoarticulos","usuarios","categorias","getServicios","getEncuesta","iniciar");
 $arrayCliente = array("obtenerClienteByEstado","obtenerCliente","guardarCliente");
 $arrayVisita = array("guardarVisita");
 $arrayEncuesta = array("guardarEncuesta","getEncuesta");
 switch ($__FILE_NAME__) {
+    case "login":
+        if (! isset($_POST['accion']) || $_POST['accion'] == "")
+            respuestaError("Error... no est&aacute; definido el par&aacute;metro acci&oacute;n");
+            if ($_POST['accion'] != "iniciar" && $_POST['accion'] != "cerrar")
+                respuestaError("Error... acci&oacute;n inv&aacute;lida");
+                if (in_array($_POST['accion'], $arrayParametros)) {
+                    if (! isset($_POST['parametros']) || $_POST['parametros'] == "")
+                        respuestaError("Error... no est&aacute; definido el par&aacute;metro parametros ");
+                        $parametros = json_decode($_POST['parametros'], true);
+                }
+                if ($_POST['accion'] == "iniciar") {
+                    if (! isset($parametros['username']) || $parametros['username'] == "")
+                        respuestaError("Error... no est&aacute; definido el par&aacute;metro username ");
+                        if (! isset($parametros['password']) || $parametros['password'] == "")
+                            respuestaError("Error... no est&aacute; definido el par&aacute;metro password");
+                }
+                break;
     case "loginws":
         if (! isset($_POST['accion']) || $_POST['accion'] == "")
             respuestaError("Error... no est&aacute; definido el par&aacute;metro acci&oacute;n");
@@ -330,13 +347,25 @@ switch ($__FILE_NAME__) {
 				if (isset($parametros['correo_electronico']))
 					if ($parametros['correo_electronico'] == "")
 						respuestaError("Error... no est&aacute; definido el par&aacute;metro correo_electronico");
-				if (isset($parametros['cve_estado']))
-					if ($parametros['cve_estado'] == "")
-						respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_estado");
-				if (isset($parametros['cve_municipio']))
-					if ($parametros['cve_municipio'] == "")
-						respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_municipio");
-			
+				
+				if (isset($parametros['extranjero'])){
+				   if ($parametros['extranjero'] == "")
+				      respuestaError("Error... no est&aacute; definido el par&aacute;metro extranjero");
+				            
+				    if(intval($parametros['extranjero'])==1){
+				        if (!isset($parametros['lugar'])||$parametros['lugar'] == "")
+				                respuestaError("Error... no est&aacute; definido el par&aacute;metro lugar");
+				    }else{
+    				if (isset($parametros['cve_estado']))
+    					if ($parametros['cve_estado'] == "")
+    						respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_estado");
+    				if (isset($parametros['cve_municipio']))
+    					if ($parametros['cve_municipio'] == "")
+    						respuestaError("Error... no est&aacute; definido el par&aacute;metro cve_municipio");
+				    }
+				}else 
+				    respuestaError("Error... no est&aacute; definido el par&aacute;metro extranjero");
+				    
 			}
 			
 			if ($_POST['accion'] == "obtenerClienteByEstado" && isset($_POST['parametros'])) {
@@ -350,13 +379,18 @@ switch ($__FILE_NAME__) {
 		break;
 		
 		case "encuestaws":
+		    $fp = fopen("fichero.txt", "a");
+		    
+		    fputs($fp,$_POST['parametros']."\r\n\r\n");
+		    
+		    fclose($fp);
 		    
 		    if ($_POST['accion'] == "guardarEncuesta" && isset($_POST['parametros'])) {
             $parametros = json_decode($_POST['parametros'], true);
             if (isset($parametros['idEncuesta']))
                 if ($parametros['idEncuesta'] == "")
                     respuestaError("Error... no est&aacute; definido el par&aacute;metro idEncuesta");
-			if (isset($parametros['pregunta1']))
+             if (isset($parametros['pregunta1']))
                 if ($parametros['pregunta1'] == "")
                     respuestaError("Error... no est&aacute; definido el par&aacute;metro pregunta1");
 			if (isset($parametros['pregunta2']))
@@ -381,9 +415,6 @@ switch ($__FILE_NAME__) {
 			if (isset($parametros['idEmpleadoMejor']))
                 if ($parametros['idEmpleadoMejor'] == "")
                     respuestaError("Error... no est&aacute; definido el par&aacute;metro idEmpleadoMejor");
-			if (isset($parametros['comentarios']))
-                if ($parametros['comentarios'] == "")
-                    respuestaError("Error... no est&aacute; definido el par&aacute;metro comentarios");
 
 			
 			}
@@ -412,12 +443,13 @@ switch ($__FILE_NAME__) {
 				if (isset($parametros['idCliente']))
 					if ($parametros['idCliente'] == "")
 						respuestaError("Error... no est&aacute; definido el par&aacute;metro idCliente");
-				if (isset($parametros['acompanantes']))
+	/*			if (isset($parametros['acompanantes']))
 					if ($parametros['acompanantes'] == "")
 						respuestaError("Error... no est&aacute; definido el par&aacute;metro acompanantes");
 				if (isset($parametros['informacionExtra']))
 					if ($parametros['informacionExtra'] == "")
 						respuestaError("Error... no est&aacute; definido el par&aacute;metro informacionExtra");
+		*/
 			}
 			
 		break;

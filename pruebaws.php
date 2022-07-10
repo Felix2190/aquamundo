@@ -7,14 +7,13 @@ curl_setopt_array($curl, [
     CURLOPT_POST => 1,
    
  // CURLOPT_URL => 'http://localhost/aquamundo/ws/loginws.php',
-  CURLOPT_URL => 'http://aquamundo.misointec.com.mx/ws/encuestaws.php',
-   /*
+  CURLOPT_URL => 'http://aquamundoacapulco.com/ws/visitaws.php',
+    
     CURLOPT_POSTFIELDS => [
-        'token'=>'','parametros'=>json_encode(array(
+        'token'=>'2w','parametros'=>json_encode(array(
         'username' => 'Admin',
         'password' => 'usuario123')), 'accion'=>'iniciar'
     ],
-*/
     /*
  //servicios
 	CURLOPT_POSTFIELDS => [
@@ -23,7 +22,7 @@ curl_setopt_array($curl, [
     ]
     */
     
- /*
+/* 
     CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
         'accion'=>'inegimunicipios','parametros'=>json_encode(array('cve_estado'=>'01'))
@@ -47,43 +46,42 @@ curl_setopt_array($curl, [
 			array(
 			'nombre' =>'Romulo',
 			'apellido'=>'Ortiz',
-			'telefono'=>'7331258503',
-			'correo_electronico'=>'romulo@gmail.com',
+			'telefono'=>'7331258506',
+			'correo_electronico'=>'romulo5@gmail.com',
+			'extranjero'=>'0',
+			    'lugar'=>'mi casa',
 			'cve_estado' => '32',
 			'cve_municipio'=>'048'
 				))
     ]
     */
-    /*
+    
      //guardarVisita
      CURLOPT_POSTFIELDS => [
      'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
      'accion'=>'guardarVisita','parametros'=>json_encode(
      array(
       'idServicio'=>'1',
-     'idCliente'=>'6',
-     'acompanantes'=>'4',
-     'informacionExtra'=>'sin info'
+     'idCliente'=>'1',
+     'informacionExtra'=>'ejemplo de visita'
      ))
      ]
-    */
-
-  /*
+    
+/*
       //getEncuesta
      CURLOPT_POSTFIELDS => [
      'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
      'accion'=>'getEncuesta','parametros'=>json_encode(
-     array('idCliente'=>'3'
+     array('idCliente'=>'1'
      ))
      ]
- */
-
-    
+*/    
+ /*   
      //guardarEncuesta
      CURLOPT_POSTFIELDS => [
      'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
      'accion'=>'guardarEncuesta','parametros'=>json_encode(
-     array('idEncuesta'=>'2',
+     array('idEncuesta'=>'3',
      'pregunta1'=>'5',
      'pregunta2'=>'5',
      'pregunta3'=>'5',
@@ -93,14 +91,12 @@ curl_setopt_array($curl, [
      'pregunta7'=>'5',
      'idEmpleadoMejor'=>'3',
      'comentarios' => 'sin comentarios'
-         
-         
-         
-         
+                  
      ))
      ]
-    
-     /*
+     */
+
+    /*
       * //obtenerClientesByEstado
 	CURLOPT_POSTFIELDS => [
         'token'=>'c0b65970aaadafc39f0a3b8f8d9d498be56c1e70',
